@@ -11,3 +11,5 @@ app.use(express.urlencoded({ extended: true }));
 app.listen(port, () => {
   console.log(`Server ran successfully on ${port}`);
 });
+
+console.log("Hello");
