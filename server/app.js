@@ -1,16 +1,26 @@
-const express = require("express");
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const bookRoutes = require('./routes/bookRoutes');
+const userRoutes = require('./routes/userRoutes');
+const { connectDB } = require('./config/db');
+
 const app = express();
 
-require("dotenv").config();
-
-const port = process.env.PORT;
-
+// Middleware
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-app.listen(port, () => {
-  console.log(`Server ran successfully on ${port}`);
+// Connect to DB
+connectDB();
+
+// Routes
+app.use('/api/books', bookRoutes);
+app.use('/api/users', userRoutes);
+
+// Basic route
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
 
-console.log("Hello");
-console.log("Hello");
+module.exports = app;
